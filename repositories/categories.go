@@ -19,7 +19,7 @@ func RepositoryCategories(db *gorm.DB) *repositories {
 
 func (r *repositories) FindCategories() ([]models.Categories, error) {
 	var categories []models.Categories
-	err := r.db.Preload("Products").Preload("Products.Orders").Preload("Products.Orders.Customers").Find(&categories).Error
+	err := r.db.Find(&categories).Error
 
 	return categories, err
 }

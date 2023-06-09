@@ -16,10 +16,10 @@ import (
 )
 
 type handlerProduct struct {
-	ProductRepository repositories.ProductRepository
+	ProductRepository repositories.ProductsRepository
 }
 
-func HandlerProduct(ProductRepository repositories.ProductRepository) *handlerProduct {
+func HandlerProduct(ProductRepository repositories.ProductsRepository) *handlerProduct {
 	return &handlerProduct{ProductRepository}
 }
 
@@ -67,14 +67,15 @@ func (h *handlerProduct) CreateProduct(w http.ResponseWriter, r *http.Request) {
 
 	price, _ := strconv.Atoi(r.FormValue("price"))
 	orders_id, _ := strconv.Atoi(r.FormValue("orders_id"))
+	categories_id, _ := strconv.Atoi(r.FormValue("categories_id"))
 
 	request := productsdto.Request_Products{
-		Name:        r.FormValue("name"),
-		Image:       r.FormValue("image"),
-		Price:       price,
-		Orders_Id:   orders_id,
-		Categories:  models.Categories{},
-		Descraption: r.FormValue("descraption"),
+		Name:          r.FormValue("name"),
+		Image:         r.FormValue("image"),
+		Price:         price,
+		Categories_Id: categories_id,
+		Descraption:   r.FormValue("descraption"),
+		Orders_Id:     orders_id,
 	}
 
 	// validation
@@ -96,13 +97,12 @@ func (h *handlerProduct) CreateProduct(w http.ResponseWriter, r *http.Request) {
 	afterDiscount := int(bill - (bill * discount / 100))
 
 	product := models.Products{
-		Name:        request.Name,
-		Descraption: request.Descraption,
-		Price:       afterDiscount,
-		Orders:      models.Orders{},
-		Orders_Id:   request.Orders_Id,
-		Categories:  []models.Categories{},
-		Image:       filename,
+		Name:          request.Name,
+		Descraption:   request.Descraption,
+		Price:         afterDiscount,
+		Categories_Id: request.Categories_Id,
+		Orders_Id:     request.Orders_Id,
+		Image:         filename,
 	}
 
 	// store data

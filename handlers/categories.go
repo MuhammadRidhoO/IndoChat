@@ -59,11 +59,8 @@ func (h *handlerCategories) GetCategories(w http.ResponseWriter, r *http.Request
 func (h *handlerCategories) CreateCategories(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	products_id, _ := strconv.Atoi(r.FormValue("products_id"))
-
 	request := categoriestdto.Request_Categories{
 		Name:        r.FormValue("name"),
-		Products_Id: products_id,
 	}
 
 	// validation
@@ -81,7 +78,6 @@ func (h *handlerCategories) CreateCategories(w http.ResponseWriter, r *http.Requ
 	}
 	categories := models.Categories{
 		Name:        request.Name,
-		Products_Id: request.Products_Id,
 	}
 
 	// store data
@@ -102,6 +98,5 @@ func convertCategoriesResponse(r models.Categories) categoriestdto.Response_Cate
 	return categoriestdto.Response_Categories{
 		Id:          r.Id,
 		Name:        r.Name,
-		Products_Id: r.Products_Id,
 	}
 }

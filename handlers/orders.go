@@ -68,7 +68,7 @@ func (h *handlerOrders) CreateOrders(w http.ResponseWriter, r *http.Request) {
 	json.NewDecoder(r.Body).Decode(&request)
 
 	userInfo := r.Context().Value("userInfo").(jwt.MapClaims)
-	request.Customers_Id = int(userInfo["id"].(float64))
+	idUser := int(userInfo["id"].(float64))
 
 	validation := validator.New()
 	errValidation := validation.Struct(request)
@@ -86,7 +86,7 @@ func (h *handlerOrders) CreateOrders(w http.ResponseWriter, r *http.Request) {
 	orders := models.Orders{
 		Date:         formattedTime,
 		Status:       request.Status,
-		Customers_Id: request.Customers_Id,
+		Customers_Id: idUser,
 	}
 
 	data, err := h.OrdersRepository.CreateOrders(orders)
@@ -107,7 +107,5 @@ func convertOrdersResponse(r models.Orders) ordersdto.Response_Orders {
 	return ordersdto.Response_Orders{
 		Id:   r.Id,
 		Date: r.Date,
-		// Products_Id:  r.Products_Id,
-		Customers_Id: r.Customers_Id,
 	}
 }

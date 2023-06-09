@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type ProductRepository interface {
+type ProductsRepository interface {
 	FindProducts() ([]models.Products, error)
 	GetProduct(Id int) (models.Products, error)
 	CreateProduct(product models.Products) (models.Products, error)
@@ -26,12 +26,12 @@ func (r *repositories) FindProducts() ([]models.Products, error) {
 
 func (r *repositories) GetProduct(Id int) (models.Products, error) {
 	var product models.Products
-	err := r.db.Preload("Orders").Preload("Orders.Customers").Preload("Categories").First(&product, Id).Error
+	err := r.db.Preload("Orders").Preload("Categories").First(&product, Id).Error
 
 	return product, err
 }
 func (r *repositories) CreateProduct(product models.Products) (models.Products, error) {
-	err := r.db.Create(&product).Error
+	err := r.db.Where("orders_id IS NULL").Create(&product).Error
 
 	return product, err
 }

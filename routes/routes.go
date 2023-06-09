@@ -9,5 +9,5 @@ func RouteInit(r *mux.Router) {
 	AuthRoutes(r)
 	CategoriesRoutes(r)
 	OrdersRoutes(r)
-	Products_OrdersRoutes(r)
+	// Products_OrdersRoutes(r)
 }

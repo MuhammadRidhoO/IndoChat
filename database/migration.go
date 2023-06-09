@@ -12,7 +12,6 @@ func RunMigration() {
 		&models.Categories{},
 		&models.Products{},
 		&models.Orders{},
-		&models.Products_Orders{},
 	)
 
 	if err != nil {

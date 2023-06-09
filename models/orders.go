@@ -1,11 +1,10 @@
 package models
 
-
 type Orders struct {
 	Id           int `json:"id" gorm:"type:int;PRIMARY_KEY"`
 	Date         string
 	Status       string
-	Product      []Products `json:"products" gorm:"many2many:products_orders;"`
+	Products      []Products `json:"products" gorm:"foreignKey:Orders_Id"`
 	Customers    Customers
 	Customers_Id int
 }

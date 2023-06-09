@@ -26,7 +26,7 @@ func (r *repositories) FindProducts() ([]models.Products, error) {
 
 func (r *repositories) GetProduct(Id int) (models.Products, error) {
 	var product models.Products
-	err := r.db.Preload("Orders").Preload("Categories").First(&product, Id).Error
+	err := r.db.Preload("Orders").Preload("Orders.Customers").Preload("Categories").First(&product, Id).Error
 
 	return product, err
 }

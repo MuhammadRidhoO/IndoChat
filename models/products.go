@@ -6,7 +6,8 @@ type Products struct {
 	Price       int          `json:"price"`
 	Descraption string       `json:"descraption"`
 	Image       string       `json:"image"`
-	Orders      []Orders     `json:"orders" gorm:"many2many:products_orders;"`
+	Orders      Orders       `json:"orders"`
+	Orders_Id   int          `json:"orders_id"`
 	Categories  []Categories `json:"categories" gorm:"foreignKey:Products_Id"`
 }
 

@@ -7,6 +7,6 @@ type Request_Products struct {
 	Price       int    `json:"price" validate:"required"`
 	Descraption string `json:"descraption" validate:"required"`
 	Image       string `json:"image" form:"image"`
-	Orders      models.Orders
+	Orders_Id   int
 	Categories  models.Categories
 }

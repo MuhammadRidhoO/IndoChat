@@ -66,12 +66,13 @@ func (h *handlerProduct) CreateProduct(w http.ResponseWriter, r *http.Request) {
 	filename := dataContex.(string)
 
 	price, _ := strconv.Atoi(r.FormValue("price"))
+	orders_id, _ := strconv.Atoi(r.FormValue("orders_id"))
 
 	request := productsdto.Request_Products{
 		Name:        r.FormValue("name"),
 		Image:       r.FormValue("image"),
 		Price:       price,
-		Orders:      models.Orders{},
+		Orders_Id:   orders_id,
 		Categories:  models.Categories{},
 		Descraption: r.FormValue("descraption"),
 	}
@@ -90,16 +91,16 @@ func (h *handlerProduct) CreateProduct(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err.Error())
 	}
 
-  bill := int(request.Price)
-  discount := int(10)
-  afterDiscount := int(bill - (bill * discount / 100))
-	
+	bill := int(request.Price)
+	discount := int(10)
+	afterDiscount := int(bill - (bill * discount / 100))
 
 	product := models.Products{
 		Name:        request.Name,
 		Descraption: request.Descraption,
 		Price:       afterDiscount,
-		Orders:      []models.Orders{},
+		Orders:      models.Orders{},
+		Orders_Id:   request.Orders_Id,
 		Categories:  []models.Categories{},
 		Image:       filename,
 	}

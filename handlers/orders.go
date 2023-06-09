@@ -86,7 +86,6 @@ func (h *handlerOrders) CreateOrders(w http.ResponseWriter, r *http.Request) {
 	orders := models.Orders{
 		Date:         formattedTime,
 		Status:       request.Status,
-		// Product:      []models.Products{},
 		Customers_Id: request.Customers_Id,
 	}
 
@@ -107,9 +106,9 @@ func (h *handlerOrders) CreateOrders(w http.ResponseWriter, r *http.Request) {
 
 func convertOrdersResponse(r models.Orders) ordersdto.Response_Orders {
 	return ordersdto.Response_Orders{
-		Id:      r.Id,
-		Date:    r.Date,
-		Product: r.Product,
+		Id:   r.Id,
+		Date: r.Date,
+		// Products_Id:  r.Products_Id,
 		Customers_Id: r.Customers_Id,
 	}
 }

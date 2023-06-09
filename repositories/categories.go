@@ -30,6 +30,7 @@ func (r *repositories) GetCategories(Id int) (models.Categories, error) {
 
 	return categories, err
 }
+
 func (r *repositories) CreateCategories(categories models.Categories) (models.Categories, error) {
 	err := r.db.Create(&categories).Error
 

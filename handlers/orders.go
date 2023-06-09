@@ -89,7 +89,6 @@ func (h *handlerOrders) CreateOrders(w http.ResponseWriter, r *http.Request) {
 		Customers_Id: request.Customers_Id,
 	}
 
-	// store data
 	data, err := h.OrdersRepository.CreateOrders(orders)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
